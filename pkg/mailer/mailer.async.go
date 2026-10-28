@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/constants"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
-	"github.com/snykk/go-rest-boilerplate/pkg/observability"
+	"github.com/go-rest-boilerplate/internal/constants"
+	"github.com/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/observability"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"

@@ -1,7 +1,7 @@
 package requests
 
 import (
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/domain"
 )
 
 // RegisterRequest is the body for POST /auth/register.

@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/records"
-	repointerface "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/interface"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/datasources/records"
+	repointerface "github.com/go-rest-boilerplate/internal/datasources/repositories/interface"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // hardLimit caps List page size so a misbehaving caller can't pull

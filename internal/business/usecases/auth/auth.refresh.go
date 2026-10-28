@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // Refresh verifies the supplied refresh token, mints a new

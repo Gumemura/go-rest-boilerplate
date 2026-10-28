@@ -3,9 +3,9 @@ package postgres
 import (
 	"context"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/records"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/datasources/records"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 func (r *postgreUserRepository) ChangeActiveUser(ctx context.Context, inDom *domain.User) (err error) {

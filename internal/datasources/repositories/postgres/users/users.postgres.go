@@ -2,7 +2,7 @@ package postgres
 
 import (
 	"github.com/jmoiron/sqlx"
-	repointerface "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/interface"
+	repointerface "github.com/go-rest-boilerplate/internal/datasources/repositories/interface"
 )
 
 // postgreUserRepository carries the sqlx handle. Each interface method

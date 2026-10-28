@@ -7,11 +7,11 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	httpauth "github.com/snykk/go-rest-boilerplate/internal/http/auth"
-	"github.com/snykk/go-rest-boilerplate/internal/http/datatransfers/responses"
-	v1 "github.com/snykk/go-rest-boilerplate/internal/http/handlers/v1"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	httpauth "github.com/go-rest-boilerplate/internal/http/auth"
+	"github.com/go-rest-boilerplate/internal/http/datatransfers/responses"
+	v1 "github.com/go-rest-boilerplate/internal/http/handlers/v1"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // Handler serves user-domain endpoints. It calls into users.Usecase

@@ -3,9 +3,9 @@ package users
 import (
 	"fmt"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/caches"
-	repointerface "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/interface"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/internal/datasources/caches"
+	repointerface "github.com/go-rest-boilerplate/internal/datasources/repositories/interface"
 	"golang.org/x/sync/singleflight"
 )
 

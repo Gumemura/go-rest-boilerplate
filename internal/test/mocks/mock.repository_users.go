@@ -5,8 +5,8 @@ package mocks
 import (
 	context "context"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	repointerface "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/interface"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	repointerface "github.com/go-rest-boilerplate/internal/datasources/repositories/interface"
 	mock "github.com/stretchr/testify/mock"
 )
 

@@ -6,8 +6,8 @@ import (
 	"testing"
 
 	"github.com/gin-gonic/gin"
-	"github.com/snykk/go-rest-boilerplate/internal/http/middlewares"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/http/middlewares"
+	"github.com/go-rest-boilerplate/pkg/logger"
 	"github.com/stretchr/testify/assert"
 )
 

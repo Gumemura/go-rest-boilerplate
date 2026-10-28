@@ -9,7 +9,7 @@ package mocks
 import (
 	"context"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
 	mock "github.com/stretchr/testify/mock"
 )
 

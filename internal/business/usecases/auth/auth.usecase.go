@@ -6,7 +6,7 @@ package auth
 import (
 	"context"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/domain"
 )
 
 // Usecase is the input boundary the HTTP handler talks to. Each

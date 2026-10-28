@@ -2,8 +2,8 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	usershandler "github.com/snykk/go-rest-boilerplate/internal/http/handlers/v1/users"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	usershandler "github.com/go-rest-boilerplate/internal/http/handlers/v1/users"
 )
 
 // usersRoute wires the /users/* group — endpoints scoped to a user's

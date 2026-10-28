@@ -1,7 +1,7 @@
 package records
 
 import (
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/domain"
 )
 
 func (u *Users) ToV1Domain() domain.User {

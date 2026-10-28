@@ -4,8 +4,8 @@ import (
 	"time"
 
 	"github.com/jmoiron/sqlx"
-	"github.com/snykk/go-rest-boilerplate/internal/config"
-	"github.com/snykk/go-rest-boilerplate/internal/constants"
+	"github.com/go-rest-boilerplate/internal/config"
+	"github.com/go-rest-boilerplate/internal/constants"
 )
 
 // SetupSQLXPostgres builds and pings a *sqlx.DB pointed at Postgres,

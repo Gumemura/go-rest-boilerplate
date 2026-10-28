@@ -8,11 +8,11 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	repointerface "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/interface"
-	postgresrepo "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/postgres/users"
-	"github.com/snykk/go-rest-boilerplate/internal/test/testenv"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	repointerface "github.com/go-rest-boilerplate/internal/datasources/repositories/interface"
+	postgresrepo "github.com/go-rest-boilerplate/internal/datasources/repositories/postgres/users"
+	"github.com/go-rest-boilerplate/internal/test/testenv"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

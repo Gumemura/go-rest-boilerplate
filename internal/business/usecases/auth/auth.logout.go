@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // Logout revokes the refresh token by deleting its jti from Redis.

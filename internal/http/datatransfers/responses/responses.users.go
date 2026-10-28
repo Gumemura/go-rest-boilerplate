@@ -3,8 +3,8 @@ package responses
 import (
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/auth"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
 )
 
 type UserResponse struct {

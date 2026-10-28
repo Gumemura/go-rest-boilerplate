@@ -4,13 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	authuc "github.com/snykk/go-rest-boilerplate/internal/business/usecases/auth"
-	httpauth "github.com/snykk/go-rest-boilerplate/internal/http/auth"
-	"github.com/snykk/go-rest-boilerplate/internal/http/datatransfers/requests"
-	v1 "github.com/snykk/go-rest-boilerplate/internal/http/handlers/v1"
-	"github.com/snykk/go-rest-boilerplate/pkg/audit"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
-	"github.com/snykk/go-rest-boilerplate/pkg/validators"
+	authuc "github.com/go-rest-boilerplate/internal/business/usecases/auth"
+	httpauth "github.com/go-rest-boilerplate/internal/http/auth"
+	"github.com/go-rest-boilerplate/internal/http/datatransfers/requests"
+	v1 "github.com/go-rest-boilerplate/internal/http/handlers/v1"
+	"github.com/go-rest-boilerplate/pkg/audit"
+	"github.com/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/validators"
 )
 
 // ChangePassword godoc

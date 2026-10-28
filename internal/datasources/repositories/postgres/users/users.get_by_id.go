@@ -5,10 +5,10 @@ import (
 	"database/sql"
 	"errors"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/records"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/datasources/records"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 func (r *postgreUserRepository) GetByID(ctx context.Context, id string) (domain.User, error) {

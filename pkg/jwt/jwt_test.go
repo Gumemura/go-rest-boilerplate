@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/pkg/clock"
-	"github.com/snykk/go-rest-boilerplate/pkg/jwt"
+	"github.com/go-rest-boilerplate/pkg/clock"
+	"github.com/go-rest-boilerplate/pkg/jwt"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

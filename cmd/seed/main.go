@@ -2,11 +2,11 @@ package main
 
 import (
 	_ "github.com/lib/pq"
-	"github.com/snykk/go-rest-boilerplate/cmd/seed/seeders"
-	"github.com/snykk/go-rest-boilerplate/internal/config"
-	"github.com/snykk/go-rest-boilerplate/internal/constants"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/drivers"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/cmd/seed/seeders"
+	"github.com/go-rest-boilerplate/internal/config"
+	"github.com/go-rest-boilerplate/internal/constants"
+	"github.com/go-rest-boilerplate/internal/datasources/drivers"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 func init() {

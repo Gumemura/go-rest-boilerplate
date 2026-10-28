@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // GetByID returns the user with the given primary key. ID lookups

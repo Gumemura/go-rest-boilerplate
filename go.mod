@@ -1,4 +1,4 @@
-module github.com/snykk/go-rest-boilerplate
+module github.com/go-rest-boilerplate
 
 go 1.25.0
 

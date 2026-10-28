@@ -18,7 +18,7 @@ import (
 // TracerName is the import path callers should use when grabbing a
 // tracer from the global provider, so every span emitted from this
 // project shares the same instrumentation library label.
-const TracerName = "github.com/snykk/go-rest-boilerplate"
+const TracerName = "github.com/go-rest-boilerplate"
 
 // TracingConfig drives tracer-provider construction. Zero value gives
 // a no-op tracer (sampler=never, no exporter), which is what tests

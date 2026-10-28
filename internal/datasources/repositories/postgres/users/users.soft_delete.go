@@ -3,8 +3,8 @@ package postgres
 import (
 	"context"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 func (r *postgreUserRepository) SoftDelete(ctx context.Context, id string) error {

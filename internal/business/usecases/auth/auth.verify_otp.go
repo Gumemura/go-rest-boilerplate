@@ -6,11 +6,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/apperror"
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
-	"github.com/snykk/go-rest-boilerplate/pkg/observability"
+	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	"github.com/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/observability"
 )
 
 // VerifyOTP checks the supplied code against Redis, increments a

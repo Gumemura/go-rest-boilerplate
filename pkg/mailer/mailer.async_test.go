@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/pkg/mailer"
+	"github.com/go-rest-boilerplate/pkg/mailer"
 	"github.com/stretchr/testify/assert"
 )
 

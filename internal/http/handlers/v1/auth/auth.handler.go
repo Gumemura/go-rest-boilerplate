@@ -4,7 +4,7 @@
 package auth
 
 import (
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/auth"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
 )
 
 // Handler is the auth-handler aggregate; per-endpoint methods are

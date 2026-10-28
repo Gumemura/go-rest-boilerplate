@@ -8,12 +8,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/auth"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	"github.com/snykk/go-rest-boilerplate/internal/config"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/caches"
-	userspostgres "github.com/snykk/go-rest-boilerplate/internal/datasources/repositories/postgres/users"
-	"github.com/snykk/go-rest-boilerplate/pkg/jwt"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	"github.com/go-rest-boilerplate/internal/config"
+	"github.com/go-rest-boilerplate/internal/datasources/caches"
+	userspostgres "github.com/go-rest-boilerplate/internal/datasources/repositories/postgres/users"
+	"github.com/go-rest-boilerplate/pkg/jwt"
 	"github.com/stretchr/testify/require"
 )
 

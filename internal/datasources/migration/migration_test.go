@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/migration"
-	"github.com/snykk/go-rest-boilerplate/internal/test/testenv"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/datasources/migration"
+	"github.com/go-rest-boilerplate/internal/test/testenv"
+	"github.com/go-rest-boilerplate/pkg/logger"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

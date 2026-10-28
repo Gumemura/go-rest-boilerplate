@@ -2,9 +2,9 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/auth"
-	authhandler "github.com/snykk/go-rest-boilerplate/internal/http/handlers/v1/auth"
-	"github.com/snykk/go-rest-boilerplate/internal/http/middlewares"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
+	authhandler "github.com/go-rest-boilerplate/internal/http/handlers/v1/auth"
+	"github.com/go-rest-boilerplate/internal/http/middlewares"
 )
 
 // authRoute wires the /auth/* group — register / login / OTP /

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/pkg/audit"
+	"github.com/go-rest-boilerplate/pkg/audit"
 	"github.com/stretchr/testify/assert"
 )
 

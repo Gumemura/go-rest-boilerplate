@@ -4,11 +4,11 @@ import (
 	"context"
 	"flag"
 
-	"github.com/snykk/go-rest-boilerplate/internal/config"
-	"github.com/snykk/go-rest-boilerplate/internal/constants"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/drivers"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/migration"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/config"
+	"github.com/go-rest-boilerplate/internal/constants"
+	"github.com/go-rest-boilerplate/internal/datasources/drivers"
+	"github.com/go-rest-boilerplate/internal/datasources/migration"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 const migrationsDir = "cmd/migration/migrations"

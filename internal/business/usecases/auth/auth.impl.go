@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/caches"
-	"github.com/snykk/go-rest-boilerplate/pkg/jwt"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
-	"github.com/snykk/go-rest-boilerplate/pkg/mailer"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	"github.com/go-rest-boilerplate/internal/datasources/caches"
+	"github.com/go-rest-boilerplate/pkg/jwt"
+	"github.com/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/mailer"
 )
 
 // usecase carries the dependencies and any cross-method state. Each

@@ -1,10 +1,10 @@
 package seeders
 
 import (
-	"github.com/snykk/go-rest-boilerplate/internal/constants"
-	"github.com/snykk/go-rest-boilerplate/internal/datasources/records"
-	"github.com/snykk/go-rest-boilerplate/pkg/helpers"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/internal/constants"
+	"github.com/go-rest-boilerplate/internal/datasources/records"
+	"github.com/go-rest-boilerplate/pkg/helpers"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 var pass string

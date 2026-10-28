@@ -2,8 +2,8 @@ package auth
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/snykk/go-rest-boilerplate/pkg/audit"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/audit"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // auditFromGin builds the HTTP-context portion of an audit Event

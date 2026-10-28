@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	jwt "github.com/snykk/go-rest-boilerplate/pkg/jwt"
+	jwt "github.com/go-rest-boilerplate/pkg/jwt"
 	mock "github.com/stretchr/testify/mock"
 )
 

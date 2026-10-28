@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 func TestLoggerUsage(t *testing.T) {

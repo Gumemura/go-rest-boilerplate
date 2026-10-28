@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/domain"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/crypto/bcrypt"

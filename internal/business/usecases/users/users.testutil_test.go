@@ -4,9 +4,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
-	"github.com/snykk/go-rest-boilerplate/internal/business/usecases/users"
-	"github.com/snykk/go-rest-boilerplate/internal/test/mocks"
+	"github.com/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/usecases/users"
+	"github.com/go-rest-boilerplate/internal/test/mocks"
 	"golang.org/x/crypto/bcrypt"
 )
 

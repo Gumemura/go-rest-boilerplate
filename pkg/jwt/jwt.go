@@ -7,8 +7,8 @@ import (
 
 	golangJWT "github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
-	"github.com/snykk/go-rest-boilerplate/pkg/clock"
-	"github.com/snykk/go-rest-boilerplate/pkg/logger"
+	"github.com/go-rest-boilerplate/pkg/clock"
+	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // ErrInvalidToken is returned when a token fails parsing or validation.

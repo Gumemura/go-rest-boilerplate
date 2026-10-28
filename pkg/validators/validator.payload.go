@@ -7,7 +7,7 @@ import (
 	"sync"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/snykk/go-rest-boilerplate/pkg/helpers"
+	"github.com/go-rest-boilerplate/pkg/helpers"
 )
 
 // FieldError describes a single failed validation rule. Returned in

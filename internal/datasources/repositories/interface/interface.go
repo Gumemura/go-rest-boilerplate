@@ -14,7 +14,7 @@ package _interface
 import (
 	"context"
 
-	"github.com/snykk/go-rest-boilerplate/internal/business/domain"
+	"github.com/go-rest-boilerplate/internal/business/domain"
 )
 
 // UserListFilter narrows down UserRepository.List() results. Each

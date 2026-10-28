@@ -48,7 +48,7 @@ A starting point for building RESTful APIs in Go using the Gin framework, sqlx f
 
 ### Quick start
 ```bash
-git clone https://github.com/snykk/go-rest-boilerplate.git
+git clone https://github.com/go-rest-boilerplate.git
 cd go-rest-boilerplate
 cp internal/config/.env.example internal/config/.env
 # Edit .env — JWT_SECRET must be at least 32 characters
