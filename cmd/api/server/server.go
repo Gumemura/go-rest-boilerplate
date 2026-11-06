@@ -112,7 +112,7 @@ func NewApp() (*App, error) {
 	// owns credential / session flows; Auth depends on Users for
 	// reads/writes of user records.
 	playersRepo := playerspostgres.NewPlayersRepository(conn)
-	playersUC := players.NewUsecase(playersRepo, jwtService, players.Config{
+	playersUC := players.NewUsecase(playersRepo, jwtService, ristrettoCache, players.Config{
 		BcryptCost: config.AppConfig.BcryptCost,
 	})
 

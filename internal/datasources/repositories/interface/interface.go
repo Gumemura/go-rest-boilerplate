@@ -19,4 +19,5 @@ import (
 
 type PlayerRepository interface {
 	Store(ctx context.Context, in *domain.Player) (domain.Player, error)
+	GetByID(ctx context.Context, id string) (domain.Player, error)
 }

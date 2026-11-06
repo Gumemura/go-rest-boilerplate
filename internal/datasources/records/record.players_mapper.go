@@ -20,7 +20,7 @@ func FromPlayersV1Domain(p *domain.Player) Player {
 	return Player{
 		Id:                p.Id,
 		InstallationId:    p.InstallationId,
-		RoleId:            2,
+		RoleId:            3,
 		Email:             p.Email,
 		Password:          p.Password,
 		CreatedAt:         p.CreatedAt,

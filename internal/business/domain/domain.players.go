@@ -8,7 +8,8 @@ import (
 
 const (
 	RoleAdmin = 1
-	RoleUser  = 2
+	RolePlayer = 2
+	RoleAnonymousPlayer = 3
 )
 
 
