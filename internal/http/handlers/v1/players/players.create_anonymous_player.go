@@ -84,6 +84,6 @@ func (h Handler) CreateAnonymousPlayer(ctx *gin.Context) {
 
 	v1.NewSuccessResponse(ctx, http.StatusCreated, "creation anonymous player success", map[string]interface{}{
 		"player": responses.PlayerFromV1Domain(anonymousPlayer),
-		"acessToken": resp.AccessToken,
+		"accessToken": resp.AccessToken,
 	})
 }

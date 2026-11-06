@@ -6,7 +6,6 @@ import (
 
 	"github.com/go-rest-boilerplate/pkg/jwt"
 	"github.com/go-rest-boilerplate/internal/apperror"
-	"github.com/go-rest-boilerplate/internal/datasources/caches"
 	repointerface "github.com/go-rest-boilerplate/internal/datasources/repositories/interface"
 	"golang.org/x/sync/singleflight"
 	"github.com/go-rest-boilerplate/internal/business/domain"
@@ -40,16 +39,14 @@ type Config struct {
 
 type usecase struct {
 	repo             repointerface.PlayerRepository
-	ristrettoCache   caches.RistrettoCache
 	cfg              Config
 	jwtService 		 jwt.JWTService
 	userByEmailGroup singleflight.Group
 }
 
-func NewUsecase(repo repointerface.PlayerRepository, ristrettoCache caches.RistrettoCache, jwtService jwt.JWTService, cfg Config) Usecase {
+func NewUsecase(repo repointerface.PlayerRepository, jwtService jwt.JWTService, cfg Config) Usecase {
 	return &usecase{
 		repo:           repo,
-		ristrettoCache: ristrettoCache,
 		cfg:            cfg,
 		jwtService:     jwtService,
 	}
