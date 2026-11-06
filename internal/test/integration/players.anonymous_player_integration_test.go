@@ -1,4 +1,6 @@
-package players_test
+//go:build integration
+
+package integration
 
 import (
 	"context"
