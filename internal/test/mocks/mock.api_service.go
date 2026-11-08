@@ -37,7 +37,8 @@ type CreateData struct {
 		InstallationID string    `json:"installation_id"`
 		CreatedAt      time.Time `json:"created_at"`
 	} `json:"player"`
-	AccessToken string `json:"accessToken"`
+	AccessToken  string `json:"accessToken"`
+	RefreshToken string `json:"refreshToken"`
 }
 
 type ValidationData struct {

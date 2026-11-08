@@ -64,6 +64,7 @@ func TestCreateAnonymousPlayer_Success(t *testing.T) {
 
 	// Token: access token cujo subject é o player recém-criado.
 	require.NotEmpty(t, data.AccessToken)
+	require.NotEmpty(t, data.RefreshToken)
 	claims, err := e.JWT.ParseToken(data.AccessToken)
 	require.NoError(t, err)
 	assert.Equal(t, data.Player.ID, claims.UserID)
