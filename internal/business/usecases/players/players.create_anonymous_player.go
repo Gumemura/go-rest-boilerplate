@@ -15,7 +15,7 @@ import (
 // and no refresh token is issued.
 func (uc *usecase) CreateAnonymousPlayer(ctx context.Context, req CreateAnonymousPlayerRequest) (resp CreateAnonymousPlayerResponse, err error) {
 	const (
-		usecaseName = "players"
+		usecaseName = "players-usacase"
 		funcName    = "CreateAnonymousPlayer"
 		fileName    = "players.create_anonymous_player.go"
 	)
@@ -57,7 +57,7 @@ func (uc *usecase) CreateAnonymousPlayer(ctx context.Context, req CreateAnonymou
 	}
 	player := storeResp.Player
 
-	token, mintErr := uc.jwtService.GenerateToken(player.Id, false, "")
+	tokens, mintErr := uc.jwtService.GenerateTokenPair(player.Id, false, "")
 	if mintErr != nil {
 		err = apperror.InternalCause(fmt.Errorf("generate token: %w", mintErr))
 		logger.ErrorWithContext(ctx, "Create anonymous player failed: token generation error", logger.Fields{
@@ -71,6 +71,10 @@ func (uc *usecase) CreateAnonymousPlayer(ctx context.Context, req CreateAnonymou
 		return CreateAnonymousPlayerResponse{}, err
 	}
 
-	resp = CreateAnonymousPlayerResponse{Player: player, AccessToken: token}
+	resp = CreateAnonymousPlayerResponse{
+		Player: player,
+		AccessToken: tokens.AccessToken,
+		RefreshToken: tokens.RefreshToken,
+	}
 	return resp, nil
 }

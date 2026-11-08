@@ -12,7 +12,6 @@ const (
 	RoleAnonymousPlayer = 3
 )
 
-
 var (
 	ErrEmptyInstallationId = errors.New("installation id cannot be empty")
 )

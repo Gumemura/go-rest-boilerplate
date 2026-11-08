@@ -14,7 +14,7 @@ import (
 
 func (r *postgresPlayersRepository) Store(ctx context.Context, inDom *domain.Player) (domain.Player, error) {
 	const (
-		repositoryName = "players"
+		repositoryName = "players-postgres"
 		funcName       = "Store"
 		queryName      = "insertPlayer"
 		fileName       = "players.store.go"

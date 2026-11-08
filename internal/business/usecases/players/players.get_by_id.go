@@ -14,10 +14,17 @@ import (
 
 func (uc *usecase) GetByID(ctx context.Context, req GetByIDRequest) (GetByIDResponse, error) {
 	const (
-		usecaseName = "players"
+		usecaseName = "players-usecase"
 		funcName    = "GetByID"
 		fileName    = "players.get_by_id.go"
 	)
+
+	logger.InfoWithContext(ctx, fmt.Sprintf("Upper %s", funcName), logger.Fields{
+		"usecase": usecaseName,
+		"method":  funcName,
+		"file":    fileName,
+		"id":      req.Id,
+	})
 	
 	if _, err := uuid.Parse(req.Id); err != nil {
 		return GetByIDResponse{}, apperror.Unauthorized("invalid player id")

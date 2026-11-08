@@ -14,6 +14,7 @@ import (
 	"github.com/go-rest-boilerplate/internal/business/usecases/players"
 	playerspostgres "github.com/go-rest-boilerplate/internal/datasources/repositories/postgres/players"
 	"github.com/go-rest-boilerplate/internal/http/middlewares"
+	"github.com/go-rest-boilerplate/internal/datasources/caches"
 	"github.com/go-rest-boilerplate/internal/http/routes"
 	"github.com/go-rest-boilerplate/internal/test/testenv"
 	"github.com/stretchr/testify/require"
@@ -60,11 +61,11 @@ func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
 	db := testenv.StartPostgres(t)
 
 	jwtSvc := jwt.NewJWTServiceWithRefresh("integration-test-secret-thirty-two-chars!", "integration-test", 1, 7)
+	ristrettoCache, _ := caches.NewRistrettoCache()
 
-	uc := players.NewUsecase(playerspostgres.NewPlayersRepository(db), jwtSvc, players.Config{BcryptCost: 4})
+	uc := players.NewUsecase(playerspostgres.NewPlayersRepository(db), jwtSvc, ristrettoCache, players.Config{BcryptCost: 4})
 
 	if rl == nil {
-		// Limite folgado para não interferir nos testes funcionais.
 		rl = middlewares.NewRateLimiter(rate.Limit(1000), 1000)
 	}
 	t.Cleanup(rl.Stop)
@@ -72,8 +73,8 @@ func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
 	router := gin.New()
 	router.Use(middlewares.RequestIDMiddleware())
 	api := router.Group("api")
-	noopAuth := func(c *gin.Context) { c.Next() } // Routes() não usa esse middleware hoje
-	routes.NewPlayersRoute(api, uc, noopAuth, rl).Routes()
+	authMw := middlewares.NewAuthMiddleware(jwtSvc, nil, false)
+	routes.NewPlayersRoute(api, uc, authMw, rl).Routes()
 
 	return &testEnv{router: router, DB: db, JWT: jwtSvc}
 }
@@ -81,6 +82,16 @@ func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
 func (e *testEnv) Post(path string, body string) *httptest.ResponseRecorder {
 	req := httptest.NewRequest(http.MethodPost, path, strings.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
+	w := httptest.NewRecorder()
+	e.router.ServeHTTP(w, req)
+	return w
+}
+
+func (e *testEnv) Get(path, token string) *httptest.ResponseRecorder {
+	req := httptest.NewRequest(http.MethodGet, path, http.NoBody)
+	if token != "" {
+		req.Header.Set("Authorization", "Bearer " + token)
+	}
 	w := httptest.NewRecorder()
 	e.router.ServeHTTP(w, req)
 	return w

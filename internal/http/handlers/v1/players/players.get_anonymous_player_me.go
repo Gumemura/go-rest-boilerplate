@@ -23,7 +23,7 @@ import (
 // @Router       /players/anonymous/me [get]
 func (h Handler) GetAnonymousPlayerMe(ctx *gin.Context) {
 	const (
-		controllerName = "players"
+		controllerName = "players-handler"
 		funcName       = "GetAnonymousPlayerMe"
 		fileName       = "players.get_anonymous_player_me.go"
 	)

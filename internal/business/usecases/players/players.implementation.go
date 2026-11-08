@@ -31,8 +31,9 @@ type (
 		InstallationId string
 	}
 	CreateAnonymousPlayerResponse struct {
-		Player      domain.Player
-		AccessToken string
+		Player       domain.Player
+		AccessToken  string
+		RefreshToken string
 	}
 )
 

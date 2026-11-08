@@ -27,7 +27,7 @@ import (
 // @Router       /players/anonymous [post]
 func (h Handler) CreateAnonymousPlayer(ctx *gin.Context) {
 	const (
-		controllerName = "players"
+		controllerName = "players-handler"
 		funcName       = "CreateAnonymousPlayer"
 		fileName       = "players.create_anonymous_player.go"
 	)
@@ -85,5 +85,6 @@ func (h Handler) CreateAnonymousPlayer(ctx *gin.Context) {
 	v1.NewSuccessResponse(ctx, http.StatusCreated, "creation anonymous player success", map[string]interface{}{
 		"player": responses.PlayerFromV1Domain(anonymousPlayer),
 		"accessToken": resp.AccessToken,
+		"refreshToken": resp.RefreshToken,
 	})
 }

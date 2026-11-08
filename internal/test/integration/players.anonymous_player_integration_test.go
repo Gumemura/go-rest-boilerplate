@@ -59,7 +59,7 @@ func TestCreateAnonymousPlayer_Success(t *testing.T) {
 	_, err := uuid.Parse(data.Player.ID)
 	assert.NoError(t, err, "player id deve ser UUID")
 	assert.Equal(t, installationID, data.Player.InstallationID)
-	assert.Equal(t, domain.RoleUser, data.Player.RoleID)
+	assert.Equal(t, domain.RoleAnonymousPlayer, data.Player.RoleID)
 	assert.WithinDuration(t, time.Now(), data.Player.CreatedAt, 10*time.Second)
 
 	// Token: access token cujo subject é o player recém-criado.
@@ -81,7 +81,7 @@ func TestCreateAnonymousPlayer_Success(t *testing.T) {
 	require.NoError(t, e.DB.GetContext(context.Background(), &roleID,
 		`SELECT role_id FROM players WHERE id = $1 AND installation_id = $2`,
 		data.Player.ID, installationID))
-	assert.Equal(t, domain.RoleUser, roleID)
+	assert.Equal(t, domain.RoleAnonymousPlayer, roleID)
 }
 
 func TestCreateAnonymousPlayer_DuplicateInstallationID(t *testing.T) {
@@ -198,6 +198,9 @@ func TestGetAnonymousPlayerMe(t *testing.T) {
 	created := e.Post(anonymousPath, bodyFor(installationID))
 	require.Equal(t, http.StatusCreated, created.Code, created.Body.String())
 	createData := decode[mocks.CreateData](t, decode[mocks.ApiResponse](t, created.Body.Bytes()).Data)
+	fmt.Println("######################################")
+	fmt.Println(createData.AccessToken)
+	fmt.Println("######################################")
 
 	t.Run("token válido -> 200 com o mesmo player", func(t *testing.T) {
 		w := e.Get(anonymousMePath, createData.AccessToken)
@@ -208,7 +211,7 @@ func TestGetAnonymousPlayerMe(t *testing.T) {
 		data := decode[mocks.CreateData](t, resp.Data)
 		assert.Equal(t, createData.Player.ID, data.Player.ID)
 		assert.Equal(t, installationID, data.Player.InstallationID)
-		assert.Equal(t, domain.RoleUser, data.Player.RoleID)
+		assert.Equal(t, domain.RoleAnonymousPlayer, data.Player.RoleID)
 	})
 
 	t.Run("sem token -> 401", func(t *testing.T) {
