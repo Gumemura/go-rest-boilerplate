@@ -29,6 +29,5 @@ func (r *playersRoute) Routes() {
 	playersGrp.Use(middlewares.BodySizeLimitMiddleware(middlewares.AuthBodyMaxBytes))
 	playersGrp.Use(r.rateLimiter.Middleware())
 
-	playersGrp.POST("/anonymous", r.handler.CreateAnonymousPlayer)
 	playersGrp.GET("/anonymous/me", r.authMiddleware, r.handler.GetAnonymousPlayerMe)
 }

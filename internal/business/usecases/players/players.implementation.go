@@ -26,20 +26,10 @@ type (
 	GetByIDResponse struct {
 		Player domain.Player
 	}
-
-	CreateAnonymousPlayerRequest struct {
-		InstallationId string
-	}
-	CreateAnonymousPlayerResponse struct {
-		Player       domain.Player
-		AccessToken  string
-		RefreshToken string
-	}
 )
 
 type Usecase interface {
 	Store(ctx context.Context, req StoreRequest) (StoreResponse, error)
-	CreateAnonymousPlayer(ctx context.Context, req CreateAnonymousPlayerRequest) (CreateAnonymousPlayerResponse, error)
 	GetByID(ctx context.Context, req GetByIDRequest) (GetByIDResponse, error)
 }
 

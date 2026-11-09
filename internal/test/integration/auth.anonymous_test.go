@@ -21,15 +21,6 @@ import (
 	"golang.org/x/time/rate"
 )
 
-///////////////////////////////
-//                           //
-//       /anonymous          //
-//                           //
-///////////////////////////////
-
-const anonymousPath = "/api/v1/players/anonymous"
-const installationIdField = "installation_id"
-
 func bodyFor(installationID string) string {
 	return fmt.Sprintf(`{"installation_id":%q}`, installationID)
 }
@@ -45,7 +36,7 @@ func TestCreateAnonymousPlayer_Success(t *testing.T) {
 	e := mocks.NewEnv(t, nil)
 	installationID := uuid.NewString()
 
-	w := e.Post(anonymousPath, bodyFor(installationID))
+	w := e.Post(mocks.AnonymousPath, bodyFor(installationID))
 
 	require.Equal(t, http.StatusCreated, w.Code, w.Body.String())
 
@@ -89,10 +80,10 @@ func TestCreateAnonymousPlayer_DuplicateInstallationID(t *testing.T) {
 	e := mocks.NewEnv(t, nil)
 	installationID := uuid.NewString()
 
-	first := e.Post(anonymousPath, bodyFor(installationID))
+	first := e.Post(mocks.AnonymousPath, bodyFor(installationID))
 	require.Equal(t, http.StatusCreated, first.Code, first.Body.String())
 
-	second := e.Post(anonymousPath, bodyFor(installationID))
+	second := e.Post(mocks.AnonymousPath, bodyFor(installationID))
 	require.Equal(t, http.StatusConflict, second.Code, second.Body.String())
 
 	resp := decode[mocks.ApiResponse](t, second.Body.Bytes())
@@ -100,7 +91,7 @@ func TestCreateAnonymousPlayer_DuplicateInstallationID(t *testing.T) {
 	assert.Equal(t, "installation id already registered", resp.Message)
 	assert.Empty(t, resp.Data, "erro não deve vazar token nem player")
 
-	assert.Equal(t, 1, e.CountPlayersBy(t, installationIdField, installationID))
+	assert.Equal(t, 1, e.CountPlayersBy(t, mocks.InstallationIdField, installationID))
 }
 
 func TestCreateAnonymousPlayer_DistinctInstallationsGetDistinctPlayers(t *testing.T) {
@@ -108,7 +99,7 @@ func TestCreateAnonymousPlayer_DistinctInstallationsGetDistinctPlayers(t *testin
 
 	var ids []string
 	for i := 0; i < 3; i++ {
-		w := e.Post(anonymousPath, bodyFor(uuid.NewString()))
+		w := e.Post(mocks.AnonymousPath, bodyFor(uuid.NewString()))
 		require.Equal(t, http.StatusCreated, w.Code, w.Body.String())
 		data := decode[mocks.CreateData](t, decode[mocks.ApiResponse](t, w.Body.Bytes()).Data)
 		ids = append(ids, data.Player.ID)
@@ -120,7 +111,7 @@ func TestCreateAnonymousPlayer_InvalidRequests(t *testing.T) {
 	e := mocks.NewEnv(t, nil)
 
 	t.Run("malformed JSON -> 400", func(t *testing.T) {
-		w := e.Post(anonymousPath, `{"installation_id":`)
+		w := e.Post(mocks.AnonymousPath, `{"installation_id":`)
 		assert.Equal(t, http.StatusBadRequest, w.Code, w.Body.String())
 		resp := decode[mocks.ApiResponse](t, w.Body.Bytes())
 		assert.False(t, resp.Status)
@@ -129,7 +120,7 @@ func TestCreateAnonymousPlayer_InvalidRequests(t *testing.T) {
 
 	t.Run("body acima de 4KiB -> 400", func(t *testing.T) {
 		big := fmt.Sprintf(`{"installation_id":%q}`, strings.Repeat("a", int(middlewares.AuthBodyMaxBytes)+1))
-		w := e.Post(anonymousPath, big)
+		w := e.Post(mocks.AnonymousPath, big)
 		assert.Equal(t, http.StatusBadRequest, w.Code, w.Body.String())
 	})
 
@@ -144,7 +135,7 @@ func TestCreateAnonymousPlayer_InvalidRequests(t *testing.T) {
 	}
 	for _, tc := range validationCases {
 		t.Run(tc.name+" -> 422", func(t *testing.T) {
-			w := e.Post(anonymousPath, tc.body)
+			w := e.Post(mocks.AnonymousPath, tc.body)
 			require.Equal(t, http.StatusUnprocessableEntity, w.Code, w.Body.String())
 
 			resp := decode[mocks.ApiResponse](t, w.Body.Bytes())
@@ -169,11 +160,11 @@ func TestCreateAnonymousPlayer_RateLimited(t *testing.T) {
 	e := mocks.NewEnv(t, rl)
 
 	for i := 0; i < 5; i++ {
-		w := e.Post(anonymousPath, bodyFor(uuid.NewString()))
+		w := e.Post(mocks.AnonymousPath, bodyFor(uuid.NewString()))
 		require.Equal(t, http.StatusCreated, w.Code, "request %d: %s", i+1, w.Body.String())
 	}
 
-	w := e.Post(anonymousPath, bodyFor(uuid.NewString()))
+	w := e.Post(mocks.AnonymousPath, bodyFor(uuid.NewString()))
 	require.Equal(t, http.StatusTooManyRequests, w.Code, w.Body.String())
 	assert.NotEmpty(t, w.Header().Get("Retry-After"))
 	assert.Equal(t, "5", w.Header().Get("X-RateLimit-Limit"))
@@ -182,53 +173,4 @@ func TestCreateAnonymousPlayer_RateLimited(t *testing.T) {
 	resp := decode[mocks.ApiResponse](t, w.Body.Bytes())
 	assert.False(t, resp.Status)
 	assert.Equal(t, "too many requests, please try again later", resp.Message)
-}
-
-///////////////////////////////
-//                           //
-//       /anonymous/me       //
-//                           //
-///////////////////////////////
-
-const anonymousMePath = "/api/v1/players/anonymous/me"
-
-func TestGetAnonymousPlayerMe(t *testing.T) {
-	e := mocks.NewEnv(t, nil)
-	installationID := uuid.NewString()
-
-	created := e.Post(anonymousPath, bodyFor(installationID))
-	require.Equal(t, http.StatusCreated, created.Code, created.Body.String())
-	createData := decode[mocks.CreateData](t, decode[mocks.ApiResponse](t, created.Body.Bytes()).Data)
-	fmt.Println("######################################")
-	fmt.Println(createData.AccessToken)
-	fmt.Println("######################################")
-
-	t.Run("token válido -> 200 com o mesmo player", func(t *testing.T) {
-		w := e.Get(anonymousMePath, createData.AccessToken)
-		require.Equal(t, http.StatusOK, w.Code, w.Body.String())
-
-		resp := decode[mocks.ApiResponse](t, w.Body.Bytes())
-		assert.True(t, resp.Status)
-		data := decode[mocks.CreateData](t, resp.Data)
-		assert.Equal(t, createData.Player.ID, data.Player.ID)
-		assert.Equal(t, installationID, data.Player.InstallationID)
-		assert.Equal(t, domain.RoleAnonymousPlayer, data.Player.RoleID)
-	})
-
-	t.Run("sem token -> 401", func(t *testing.T) {
-		w := e.Get(anonymousMePath, "")
-		assert.Equal(t, http.StatusUnauthorized, w.Code, w.Body.String())
-	})
-
-	t.Run("token inválido -> 401", func(t *testing.T) {
-		w := e.Get(anonymousMePath, "not-a-jwt")
-		assert.Equal(t, http.StatusUnauthorized, w.Code, w.Body.String())
-	})
-
-	t.Run("token válido de player inexistente -> 404", func(t *testing.T) {
-		tok, err := e.JWT.GenerateToken(uuid.NewString(), false, "")
-		require.NoError(t, err)
-		w := e.Get(anonymousMePath, tok)
-		assert.Equal(t, http.StatusNotFound, w.Code, w.Body.String())
-	})
 }

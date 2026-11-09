@@ -12,6 +12,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-rest-boilerplate/internal/business/usecases/players"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
 	playerspostgres "github.com/go-rest-boilerplate/internal/datasources/repositories/postgres/players"
 	"github.com/go-rest-boilerplate/internal/http/middlewares"
 	"github.com/go-rest-boilerplate/internal/datasources/caches"
@@ -22,6 +23,10 @@ import (
 	"github.com/jmoiron/sqlx"
 	"golang.org/x/time/rate"
 )
+
+const AnonymousPath = "/api/v1/auth/anonymous"
+const AnonymousMePath = "/api/v1/players/anonymous/me"
+const InstallationIdField = "installation_id"
 
 type ApiResponse struct {
 	Status    bool            `json:"status"`
@@ -63,8 +68,10 @@ func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
 
 	jwtSvc := jwt.NewJWTServiceWithRefresh("integration-test-secret-thirty-two-chars!", "integration-test", 1, 7)
 	ristrettoCache, _ := caches.NewRistrettoCache()
+	redisCache := NewRedisCache(t)
 
-	uc := players.NewUsecase(playerspostgres.NewPlayersRepository(db), jwtSvc, ristrettoCache, players.Config{BcryptCost: 4})
+	puc := players.NewUsecase(playerspostgres.NewPlayersRepository(db), jwtSvc, ristrettoCache, players.Config{BcryptCost: 4})
+	auc := auth.NewUsecase(puc, jwtSvc, redisCache, auth.Config{})
 
 	if rl == nil {
 		rl = middlewares.NewRateLimiter(rate.Limit(1000), 1000)
@@ -75,7 +82,8 @@ func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
 	router.Use(middlewares.RequestIDMiddleware())
 	api := router.Group("api")
 	authMw := middlewares.NewAuthMiddleware(jwtSvc, nil, false)
-	routes.NewPlayersRoute(api, uc, authMw, rl).Routes()
+	routes.NewPlayersRoute(api, puc, authMw, rl).Routes()
+	routes.NewAuthRoute(api, auc, authMw, rl).Routes()
 
 	return &testEnv{router: router, DB: db, JWT: jwtSvc}
 }
@@ -88,7 +96,7 @@ func (e *testEnv) Post(path string, body string) *httptest.ResponseRecorder {
 	return w
 }
 
-func (e *testEnv) Get(path, token string) *httptest.ResponseRecorder {
+func (e *testEnv) Get(path string, token string) *httptest.ResponseRecorder {
 	req := httptest.NewRequest(http.MethodGet, path, http.NoBody)
 	if token != "" {
 		req.Header.Set("Authorization", "Bearer " + token)

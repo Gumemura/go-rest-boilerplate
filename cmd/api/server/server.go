@@ -14,6 +14,7 @@ import (
 	"github.com/jmoiron/sqlx"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/go-rest-boilerplate/internal/business/usecases/players"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
 	"github.com/go-rest-boilerplate/internal/config"
 	"github.com/go-rest-boilerplate/internal/constants"
 	"github.com/go-rest-boilerplate/internal/datasources/caches"
@@ -115,6 +116,7 @@ func NewApp() (*App, error) {
 	playersUC := players.NewUsecase(playersRepo, jwtService, ristrettoCache, players.Config{
 		BcryptCost: config.AppConfig.BcryptCost,
 	})
+	authUC := auth.NewUsecase(playersUC, jwtService, redisCache, auth.Config{})
 
 	// 5 requests per minute per IP for the anonymous /auth surface.
 	// Owned by App so its background cleanup goroutine can be stopped
@@ -125,6 +127,7 @@ func NewApp() (*App, error) {
 	api := router.Group("api")
 	api.GET("/", routes.RootHandler)
 	
+	routes.NewAuthRoute(api, authUC, authMiddleware, authRateLimiter).Routes()
 	routes.NewPlayersRoute(api, playersUC, authMiddleware, authRateLimiter).Routes()
 
 	// setup http server

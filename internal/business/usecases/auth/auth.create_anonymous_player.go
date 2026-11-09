@@ -1,4 +1,4 @@
-package players
+package auth
 
 import (
 	"context"
@@ -6,18 +6,19 @@ import (
 	"time"
 
 	"github.com/go-rest-boilerplate/internal/apperror"
+	"github.com/go-rest-boilerplate/internal/business/usecases/players"
 	"github.com/go-rest-boilerplate/pkg/logger"
 )
 
 // CreateAnonymousPlayer registers a player for the given installation
 // id and mints an access token whose subject is the new player's UUID.
-// Anonymous players have no e-mail, so the token's Email claim is empty
+// Anonymous auth have no e-mail, so the token's Email claim is empty
 // and no refresh token is issued.
 func (uc *usecase) CreateAnonymousPlayer(ctx context.Context, req CreateAnonymousPlayerRequest) (resp CreateAnonymousPlayerResponse, err error) {
 	const (
-		usecaseName = "players-usacase"
+		usecaseName = "auth-usecase"
 		funcName    = "CreateAnonymousPlayer"
-		fileName    = "players.create_anonymous_player.go"
+		fileName    = "auth.create_anonymous_player.go"
 	)
 	startTime := time.Now()
 
@@ -43,14 +44,14 @@ func (uc *usecase) CreateAnonymousPlayer(ctx context.Context, req CreateAnonymou
 		logger.InfoWithContext(ctx, fmt.Sprintf("Lower %s", funcName), fields)
 	}()
 
-	storeResp, storeErr := uc.Store(ctx, StoreRequest{InstallationId: req.InstallationId})
+	storeResp, storeErr := uc.players.Store(ctx, players.StoreRequest{InstallationId: req.InstallationId})
 	if storeErr != nil {
 		err = storeErr
 		logger.ErrorWithContext(ctx, "Create anonymous player failed: store error", logger.Fields{
 			"usecase": usecaseName,
 			"method":  funcName,
 			"file":    fileName,
-			"step":    "players_store",
+			"step":    "auth_store",
 			"error":   storeErr.Error(),
 		})
 		return CreateAnonymousPlayerResponse{}, err

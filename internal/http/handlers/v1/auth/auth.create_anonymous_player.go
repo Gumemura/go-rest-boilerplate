@@ -1,4 +1,4 @@
-package players
+package auth
 
 import (
 	"net/http"
@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-rest-boilerplate/internal/http/datatransfers/requests"
 	"github.com/go-rest-boilerplate/internal/http/datatransfers/responses"
-	"github.com/go-rest-boilerplate/internal/business/usecases/players"
+	"github.com/go-rest-boilerplate/internal/business/usecases/auth"
 	"github.com/go-rest-boilerplate/pkg/logger"
 	v1 "github.com/go-rest-boilerplate/internal/http/handlers/v1"
 	"github.com/go-rest-boilerplate/pkg/validators"
@@ -17,19 +17,19 @@ import (
 
 // @Summary      Creates an anonymous player
 // @Description  Creates an anonymous player and returns an access token
-// @Tags         players
+// @Tags         auth
 // @Accept       json
 // @Produce      json
 // @Param        request body requests.CreateAnonymousPlayerRequest true "Installation ID"
 // @Success      201 {object} v1.BaseResponse
 // @Failure      400 {object} v1.BaseResponse
 // @Failure      409 {object} v1.BaseResponse
-// @Router       /players/anonymous [post]
+// @Router       /auth/anonymous [post]
 func (h Handler) CreateAnonymousPlayer(ctx *gin.Context) {
 	const (
-		controllerName = "players-handler"
+		controllerName = "auth-handler"
 		funcName       = "CreateAnonymousPlayer"
-		fileName       = "players.create_anonymous_player.go"
+		fileName       = "auth.create_anonymous_player.go"
 	)
 	var req requests.CreateAnonymousPlayerRequest
 	if err := ctx.ShouldBindJSON(&req); err != nil {
@@ -56,7 +56,7 @@ func (h Handler) CreateAnonymousPlayer(ctx *gin.Context) {
 		return
 	}
 
-	resp, err := h.usecase.CreateAnonymousPlayer(ctx, players.CreateAnonymousPlayerRequest{InstallationId: req.InstallationId})
+	resp, err := h.usecase.CreateAnonymousPlayer(ctx, auth.CreateAnonymousPlayerRequest{InstallationId: req.InstallationId})
 	if err != nil {
 		ev := httpaudit.FromGin(ctx)
 		ev.Type = auditpkg.EventRegister
