@@ -72,6 +72,19 @@ func (uc *usecase) CreateAnonymousPlayer(ctx context.Context, req CreateAnonymou
 		return CreateAnonymousPlayerResponse{}, err
 	}
 
+	if persistErr := uc.rememberRefresh(ctx, tokens); persistErr != nil {
+		err = apperror.InternalCause(fmt.Errorf("persist refresh: %w", persistErr))
+		logger.ErrorWithContext(ctx, "Anonymous player creation failed: persist refresh error", logger.Fields{
+			"usecase": usecaseName,
+			"method":  funcName,
+			"file":    fileName,
+			"step":    "persist_refresh",
+			"error":   persistErr.Error(),
+			"user_id": player.Id,
+		})
+		return CreateAnonymousPlayerResponse{}, err
+	}
+
 	resp = CreateAnonymousPlayerResponse{
 		Player: player,
 		AccessToken: tokens.AccessToken,
