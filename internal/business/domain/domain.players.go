@@ -28,6 +28,8 @@ type Player struct {
 	PasswordChangedAt *time.Time
 }
 
+func (p Player) IsAdmin() bool { return p.RoleId == RoleAdmin }
+
 func NewAnonymousPlayer(id, installationID string) (*Player, error) {
 	installationID = strings.TrimSpace(installationID)
 	if installationID == "" {
@@ -38,4 +40,11 @@ func NewAnonymousPlayer(id, installationID string) (*Player, error) {
 		InstallationId: installationID,
 		CreatedAt:      time.Now().UTC(),
 	}, nil
+}
+
+func (p Player) TokensRevokedBefore() time.Time {
+	if p.PasswordChangedAt == nil {
+		return time.Time{}
+	}
+	return *p.PasswordChangedAt
 }

@@ -20,10 +20,20 @@ type (
 		AccessToken  string
 		RefreshToken string
 	}
+
+	RefreshRequest struct {
+		RefreshToken string
+	}
+	RefreshResponse struct {
+		Player       domain.Player
+		AccessToken  string
+		RefreshToken string
+	}
 )
 
 type Usecase interface {
 	CreateAnonymousPlayer(ctx context.Context, req CreateAnonymousPlayerRequest) (CreateAnonymousPlayerResponse, error)
+	Refresh(ctx context.Context, req RefreshRequest) (RefreshResponse, error)
 }
 
 type Config struct {

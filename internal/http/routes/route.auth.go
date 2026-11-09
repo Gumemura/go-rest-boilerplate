@@ -30,4 +30,5 @@ func (r *authRoute) Routes() {
 	authGrp.Use(r.rateLimiter.Middleware())
 
 	authGrp.POST("/anonymous", r.handler.CreateAnonymousPlayer)
+	authGrp.POST("/refresh", r.handler.Refresh)
 }

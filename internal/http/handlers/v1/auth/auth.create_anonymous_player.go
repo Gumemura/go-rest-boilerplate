@@ -12,7 +12,6 @@ import (
 	"github.com/go-rest-boilerplate/pkg/validators"
 	httpaudit "github.com/go-rest-boilerplate/internal/http/audit"
 	auditpkg "github.com/go-rest-boilerplate/pkg/audit"
-
 )
 
 // @Summary      Creates an anonymous player

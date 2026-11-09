@@ -3,6 +3,7 @@ module github.com/go-rest-boilerplate
 go 1.25.0
 
 require (
+	github.com/alicebob/miniredis/v2 v2.40.0
 	github.com/dgraph-io/ristretto v0.2.0
 	github.com/gin-contrib/cors v1.7.7
 	github.com/gin-gonic/gin v1.12.0
@@ -44,7 +45,6 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/PuerkitoBio/purell v1.1.1 // indirect
 	github.com/PuerkitoBio/urlesc v0.0.0-20170810143723-de5bf2ad4578 // indirect
-	github.com/alicebob/miniredis/v2 v2.40.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bytedance/gopkg v0.1.4 // indirect
 	github.com/bytedance/sonic v1.15.0 // indirect
