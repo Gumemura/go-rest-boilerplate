@@ -54,13 +54,25 @@ type ValidationData struct {
 	} `json:"errors"`
 }
 
-type testEnv struct {
+type TestEnv struct {
 	router *gin.Engine
 	DB     *sqlx.DB
 	JWT    jwt.JWTService
+	RC     *RedisCache
 }
 
-func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
+func BodyFor(tag string, value string) string {
+	return fmt.Sprintf(`{%q:%q}`, tag, value)
+}
+
+func Decode[T any](t *testing.T, raw []byte) T {
+	t.Helper()
+	var v T
+	require.NoError(t, json.Unmarshal(raw, &v), "body: %s", raw)
+	return v
+}
+
+func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *TestEnv {
 	t.Helper()
 	gin.SetMode(gin.TestMode)
 
@@ -85,10 +97,10 @@ func NewEnv(t *testing.T, rl *middlewares.RateLimiter) *testEnv {
 	routes.NewPlayersRoute(api, puc, authMw, rl).Routes()
 	routes.NewAuthRoute(api, auc, authMw, rl).Routes()
 
-	return &testEnv{router: router, DB: db, JWT: jwtSvc}
+	return &TestEnv{router: router, DB: db, JWT: jwtSvc, RC: redisCache}
 }
 
-func (e *testEnv) Post(path string, body string) *httptest.ResponseRecorder {
+func (e *TestEnv) Post(path string, body string) *httptest.ResponseRecorder {
 	req := httptest.NewRequest(http.MethodPost, path, strings.NewReader(body))
 	req.Header.Set("Content-Type", "application/json")
 	w := httptest.NewRecorder()
@@ -96,7 +108,7 @@ func (e *testEnv) Post(path string, body string) *httptest.ResponseRecorder {
 	return w
 }
 
-func (e *testEnv) Get(path string, token string) *httptest.ResponseRecorder {
+func (e *TestEnv) Get(path string, token string) *httptest.ResponseRecorder {
 	req := httptest.NewRequest(http.MethodGet, path, http.NoBody)
 	if token != "" {
 		req.Header.Set("Authorization", "Bearer " + token)
@@ -106,7 +118,7 @@ func (e *testEnv) Get(path string, token string) *httptest.ResponseRecorder {
 	return w
 }
 
-func (e *testEnv) CountPlayersBy(
+func (e *TestEnv) CountPlayersBy(
     t *testing.T,
     field string,
     value string,

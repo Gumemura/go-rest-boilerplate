@@ -22,7 +22,7 @@ func (r *postgresPlayersRepository) GetByID(ctx context.Context, id string) (dom
 
 	var rec records.Player
 	err := r.conn.GetContext(ctx, &rec, `
-		SELECT id, installation_id, role_id, created_at, updated_at
+		SELECT id, installation_id, role_id, created_at, updated_at, password_changed_at
 		FROM players
 		WHERE id = $1 AND deleted_at IS NULL
 	`, id)

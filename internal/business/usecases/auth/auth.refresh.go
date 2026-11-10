@@ -136,7 +136,7 @@ func (uc *usecase) Refresh(ctx context.Context, req RefreshRequest) (resp Refres
 		})
 		return RefreshResponse{}, err
 	}
-	_ = uc.redisCache.Del(ctx, RefreshKey(claims.UserID))
+	_ = uc.redisCache.Del(ctx, RefreshKey(claims.ID))
 
 	resp = RefreshResponse{
 		Player:       player,

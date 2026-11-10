@@ -17,17 +17,17 @@ func TestGetAnonymousPlayerMe(t *testing.T) {
 	e := mocks.NewEnv(t, nil)
 	installationID := uuid.NewString()
 
-	created := e.Post(mocks.AnonymousPath, bodyFor(installationID))
+	created := e.Post(mocks.AnonymousPath, mocks.BodyFor(mocks.InstallationIdField, installationID))
 	require.Equal(t, http.StatusCreated, created.Code, created.Body.String())
-	createData := decode[mocks.CreateData](t, decode[mocks.ApiResponse](t, created.Body.Bytes()).Data)
+	createData := mocks.Decode[mocks.CreateData](t, mocks.Decode[mocks.ApiResponse](t, created.Body.Bytes()).Data)
 
 	t.Run("token válido -> 200 com o mesmo player", func(t *testing.T) {
 		w := e.Get(mocks.AnonymousMePath, createData.AccessToken)
 		require.Equal(t, http.StatusOK, w.Code, w.Body.String())
 
-		resp := decode[mocks.ApiResponse](t, w.Body.Bytes())
+		resp := mocks.Decode[mocks.ApiResponse](t, w.Body.Bytes())
 		assert.True(t, resp.Status)
-		data := decode[mocks.CreateData](t, resp.Data)
+		data := mocks.Decode[mocks.CreateData](t, resp.Data)
 		assert.Equal(t, createData.Player.ID, data.Player.ID)
 		assert.Equal(t, installationID, data.Player.InstallationID)
 		assert.Equal(t, domain.RoleAnonymousPlayer, data.Player.RoleID)
